@@ -15,3 +15,47 @@ library(dplyr)
 library(funModeling)
 library(skimr)
 ```
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+peo <- read_csv("https://raw.githubusercontent.com/cwong79/DATA621/Calvin/Final%20Project/PEO1.csv")
+```
+
+```{r}
+set.seed(305)
+peo$HealthRating <- sample(1:5, replace = T)
+peo$WCRating <- sample(1:5, replace = T)
+peo$Strategy <- sample(1:5, replace = T)
+peo$Cost <- sample(1:5, replace = T)
+peo$Support <- sample(1:5, replace = T)
+```
+
+```{r}
+unique(peo$NAICS)
+```
+
+```{r}
+type <- c("Agriculture, Forestry, and Fishing","Mining","Construction","Manufacturing","Transportation, Communication, Electric, Gas, and Sanitary Services","Wholesale Trade","Retail Trade", "Finance, Insurance, and Real Estate", "Services", "Public Administration")
+sicdata <- data.frame(type)
+```
+
+```{r}
+peo$ClassCode2 <- as.numeric(substr(peo$`GOVERNING CLASS CODE`, start = 1, stop = 2))
+```
+
+```{r}
+peo$SICTYPE <- cut(peo$ClassCode2, c(1, 10, 15, 20, 40, 50, 52, 60, 70, 89, Inf), type)
+```
+
+```{r}
+train <- peo[ which(peo$`NAMED INSURED`=='ADP TOTAL SOURCE INC'), ]
+```
+
+```{r}
+test <- peo[ -which(peo$`NAMED INSURED`=='ADP TOTAL SOURCE INC'), ]
+```
+
+```{r}
+
+```
+
