@@ -22,6 +22,11 @@ peo <- read_csv("https://raw.githubusercontent.com/cwong79/DATA621/Calvin/Final%
 ```
 
 ```{r}
+peo = subset(peo, select = -c(X1, `CANCEL DATE`, `LOCATION CANCEL DATE`, `WRAP-UP INDICATOR`))
+```
+
+
+```{r}
 set.seed(305)
 peo$HealthRating <- sample(1:5, replace = T)
 peo$WCRating <- sample(1:5, replace = T)
