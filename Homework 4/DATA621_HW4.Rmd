@@ -24,7 +24,6 @@ library(knitr)
 library(pROC)
 library(ROCit)
 library(dplyr)
-library(funModeling)
 library(skimr)
 ```
 
@@ -60,6 +59,19 @@ b. Create flags to suggest if a variable was missing
 c. Transform data by putting it into buckets
 d. Mathematical transforms such as log or square root (or use Box-Cox)
 e. Combine variables (such as ratios or adding or multiplying) to create new variables
+
+```{r}
+# trigger a dummy variable if NA is present
+train$CAR_AGE_MISSING <- ifelse(is.na(train$CAR_AGE), 1, 0)
+# imputing NA to mean
+train$CAR_AGE[is.na(train$CAR_AGE)] <- mean(train$CAR_AGE, na.rm=TRUE)
+
+# trigger a dummy variable if NA is present
+train$YOJ_MISSING <- ifelse(is.na(train$YOJ), 1, 0)
+# imputing NA to mean
+train$YOJ[is.na(train$YOJ)] <- mean(train$YOJ, na.rm=TRUE)
+```
+
 
 3. BUILD MODELS (25 Points)
 Using the training data set, build at least two different multiple linear regression models and three different binary
