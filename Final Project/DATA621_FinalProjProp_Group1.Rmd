@@ -1,0 +1,53 @@
+---
+title: 'DATA 621: Final Project Proposal'
+author: "Calvin Wong, Juanelle Marks, Kevin Benson, Ravi Itwaru, Sudhan Maharjan"
+date: "11/12/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Introduction
+
+In this final project, we will work with a datset relating to workers compensation insurance in the state of Florida.  Workers compensation is a type of commercial insurance in which an employer takes out accident insurance for the benefit of its employees.  If an employee is injured on the job or acquires a work-related illness, workers comp will cover medical expenses as well as lost wages until the employee is able to return to work. 
+
+We will focus in particular on a co-employment arrangement called a Professional Employer Organization (PEO), in which a typically smaller company outsources its HR, employee benefits, and payroll to a larger company that specialize in these functions.  One such company is ADP's TotalSource PEO.
+
+## Research Question
+
+In this project we will attempt to answer the following research questions:
+
+* To what extent might TotalSource PEO have opportunities to grow market share in the South Florida business market?  
+* Specifically, can we identify companies that resemble those already represented by TotalSource PEO, and which therefore might be likely prospects to be converted to clients of TotalSource PEO?
+
+## Data Source
+
+The dataset that we will use for this project is a publicly available dataset from the State of Florida Workers’ Compensation Department, which contains workers comp coverage data over 2018 and 2019.  
+The dataset is sourced from the Florida workers comp website (https://www.myfloridacfo.com/division/wc/), and has been downloaded and saved as a raw CSV file at:
+
+https://raw.githubusercontent.com/cwong79/DATA621/Calvin/Final%20Project/PEO1.csv
+
+This dataset includes 10,730 cases of 25 variables, with each case relating to a specific company's workers comp insurance policy.  The 25 variables include policy information (policy dates, insurance agent, carrier, etc.) as well as insured company information (name, location, number of employees, etc.).
+
+```{r echo = FALSE, cache = TRUE, message = FALSE, warning = FALSE}
+file <- "https://raw.githubusercontent.com/cwong79/DATA621/Calvin/Final%20Project/PEO1.csv"
+
+df <- read_csv(file)
+glimpse(df)
+```
+
+For purpose of this project, our target variable will be derived from `NAMED INSURED`, which is the beneficiary listed for each workers comp policy.  The named insured may be the primary employer company, or it may be the PEO in the case of a PEO arrangement.  We can identify the companies that currently use TotalSource PEO by filtering the target variable `NAMED INSURED == 'ADP TOTAL SOURCE INC'`.
+
+## Methodology
+
+In this project we will develop a regression model to predict whether a company in the workers comp dataset is a client of TotalSource PEO, as labeled in the target variable `NAMED INSURED`.  The regression model will most likely be a logistic regression, in which the binary response variable is:
+
+* 1: `NAMED INSURED == 'ADP TOTAL SOURCE INC'`
+* 0: otherwise
+
+Potential predictor variables include various information about the companies, including industry, number of employees, type of employees, location, insurance carrier, and other data.  Some of this data may have to be pulled from other data sources, such as business information websites.
+
+Once we develop the logistic model, we can use this to predict the probability of a company being a client of TotalSource PEO.  By comparing the predicted probabilities to the actual values of the target variable, we can identify cases where the probability is high (>0.5) but where the company is not a client.  These are companies that resemble TotalSource's clients based on the predictor variables, but which are not yet clients.  These could be likely candidates for conversion, based on similarity to TotalSource's current client base.
