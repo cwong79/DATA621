@@ -81,4 +81,11 @@ train$SupportRating <- sample(2:4, replace = T)
 test <- peo[ -which(peo$`NAMED INSURED`=='ADP TOTAL SOURCE INC'), ]
 ```
 
+```{r}
+test %>% group_by(test$`NAMED INSURED`) %>% summarize(count=n())
+```
+
+```{r}
+
+```
 
