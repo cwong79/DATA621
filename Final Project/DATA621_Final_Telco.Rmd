@@ -17,7 +17,15 @@ library(skimr)
 
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
-db <- read_csv(file="/Users/cwong79/Downloads/test-2.csv")
+db <- read_csv("https://raw.githubusercontent.com/cwong79/DATA621/Calvin/Final%20Project/WA_Fn-UseC_-Telco-Customer-Churn.csv")
 ```
 
+```{r}
+str(db)
+```
+
+```{r}
+db %>%
+  skim()
+```
 
