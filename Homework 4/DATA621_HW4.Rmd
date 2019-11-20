@@ -60,6 +60,7 @@ c. Transform data by putting it into buckets
 d. Mathematical transforms such as log or square root (or use Box-Cox)
 e. Combine variables (such as ratios or adding or multiplying) to create new variables
 
+
 ```{r}
 # trigger a dummy variable if NA is present
 train$CAR_AGE_MISSING <- ifelse(is.na(train$CAR_AGE), 1, 0)

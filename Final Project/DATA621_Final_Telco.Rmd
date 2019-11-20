@@ -1,0 +1,23 @@
+---
+title: "DATA621_Final_Telco"
+author: "Calvin Wong"
+date: "11/20/2019"
+output: pdf_document
+---
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+library(tidyverse)
+library(knitr)
+library(pROC)
+library(ROCit)
+library(dplyr)
+library(skimr)
+```
+
+
+```{r message=FALSE, warning=FALSE, include=FALSE}
+db <- read_csv(file="/Users/cwong79/Downloads/test-2.csv")
+```
+
+
